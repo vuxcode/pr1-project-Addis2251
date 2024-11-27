@@ -1,0 +1,23 @@
+table{
+                                           /*min height is the minimum siz on every screen/device.
+                                           border spacing is the space between every square in the table.
+                                           border 2px to define the line and solid not doted.*/
+    min-height: 50px;
+    justify-content: center;
+    border-spacing: 0;
+    align-items: center;
+}
+
+td{
+    border: 2px solid black;
+    
+}
+
+.sq{
+
+    height: 50px;
+    width: 50px;
+}
+
+
+
