@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>tic tac toe</title>
+
+    <style>
+        table{
+            min-height: 50px;
+            justify-content: center;
+            border-spacing: 0;
+            
+        }
+        
+    </style>
+
+</head>
+<body>
+    <h1 id="turn"> Player Turn (1) : </h1>
+
+    <table>
+        <tr>
+            <td id="sq1" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>                <!--table row 1. td is table data.  table data for first row square -->
+            <td id="sq2" style="height: 50px; width: 50px; border: 2px solid black; text-align: center;"></td>                <!--id for every square and give -->
+            <td id="sq3" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>
+        </tr>  
+        <tr>
+            <td id="sq4" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>   <!--table row 2 . table data for square in the second row -->
+            <td id="sq5" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>
+            <td id="sq6" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>
+        </tr>  
+        <tr>
+            <td id="sq7" style="height: 50px; width: 50px; border: 2px solid black; text-align: center;"></td>   <!--table row 3 table data for square in the third row -->
+            <td id="sq8" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>
+            <td id="sq9" style="height: 50px; width: 50px; border: 2px solid black; text-align: center;"></td>
+        </tr>  
+
+         
+    </table>
+   
+    <script>
+            var board = [                          // array of whole board with row and column , at start it is empty will update when player clicks
+            ["" , "" , ""],
+            ["",  "",  ""],
+            ["",  "",  ""]
+            ];
+        
+        var currentplayer = 1;
+        function updatePlayer(squareid , row , col)                          // function for player turn if first player put O if second then put X    square id is name of a function parameter
+        {
+
+            var square = document.getElementById(squareid);         // squareid assigining to square variable 
+
+            if(square.innerHTML === "")                           // if its empty then write X or O
+            {
+                if(currentplayer === 1){
+                    board[row][col] = "O"                             //assign O to whatever square is 
+                    square.innerHTML = "O"                            // put O in the square
+                    currentplayer = 2 ; 
+                }
+                else
+                { 
+                                                   // put X in the square
+                    board[row][col] ="X";          
+                    square.innerHTML = "X"
+                    currentplayer = 1;  
+                }
+                
+            }
+            
+        }
+
+
+        function checkwinner()
+        {
+            for (var i=0; i<3; i++)              // for is loop i is a variable means index starts from 0 goes upto 2 , i++ is update the i value like 0,1,2
+            {
+                if(board[i][0]!=="" && board[i][0]===board[i][1] && board[i][1]===board[i][2]);       // if statement to check the rows by putting i in row place
+                {return true; 
+
+                }               // if one row matched just don't check anything else
+            }
+        
+            for (var i=0; i<3; i++){
+            if(board[0][i]!=="" && board[0][i]===board[1][i] && board[1][i]===board[2][i])             // if statement is to check column by putting i in column place
+            {
+                return true; 
+            }
+            }
+            //check diagonals 
+            if(board[0][0]!=="" && board[0][0]===board[1][1] && board [1][1] ===board[2][2] ){     // check diagonals of the table 
+                return true;
+            }
+
+            //check another diagonal
+            if(board[0][2]!=="" && board[0][2]===board[1][1] && board [1][1] ===board[2][0] ){
+                return true;
+            }
+            return false; 
+        } 
+
+
+
+
+
+
+        document.getElementById("sq1").onclick = function() { updatePlayer("sq1", 0, 0); };
+        document.getElementById("sq2").onclick = function() { updatePlayer("sq2", 0, 1); };
+        document.getElementById("sq3").onclick = function() { updatePlayer("sq3", 0, 2); };
+        document.getElementById("sq4").onclick = function() { updatePlayer("sq4", 1, 0); };
+        document.getElementById("sq5").onclick = function() { updatePlayer("sq5", 1, 1); };
+        document.getElementById("sq6").onclick = function() { updatePlayer("sq6", 1, 2); };
+        document.getElementById("sq7").onclick = function() { updatePlayer("sq7", 2, 0); };
+        document.getElementById("sq8").onclick = function() { updatePlayer("sq8", 2, 1); };
+        document.getElementById("sq9").onclick = function() { updatePlayer("sq9", 2, 2); };
+    </script>
+</body>
+</html>
