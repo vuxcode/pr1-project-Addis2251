@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>tic tac toe</title>
+
+    <style>
+        table{
+            min-height: 50px;
+            justify-content: center;
+            border-spacing: 0;
+            
+        }
+        
+    </style>
+
+</head>
+<body>
+
+
+    <table>
+        <tr>
+            <td id="sq1" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>                <!--table row 1. td is table data.  table data for first row square -->
+            <td id="sq2" style="height: 50px; width: 50px; border: 2px solid black; text-align: center;"></td>                <!--id for every square and give -->
+            <td id="sq3" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>
+        </tr>  
+        <tr>
+            <td id="sq4" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>   <!--table row 2 . table data for square in the second row -->
+            <td id="sq5" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>
+            <td id="sq6" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>
+        </tr>  
+        <tr>
+            <td id="sq7" style="height: 50px; width: 50px; border: 2px solid black; text-align: center;"></td>   <!--table row 3 table data for square in the third row -->
+            <td id="sq8" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>
+            <td id="sq9" style="height: 50px; width: 50px; border: 2px solid black; text-align: center;"></td>
+        </tr>  
+
+         
+    </table>
+   
+    <script>
+            var board = [                          // array of whole board with row and column , at start it is empty will update when player clicks
+            ["" , "" , ""],
+            ["",  "",  ""],
+            ["",  "",  ""]
+            ];
+        
+        var currentplayer = 1;
+        function updateplayer(squareid , row , col)                          // function for player turn if first player put O if second then put X    square id is name of a function parameter
+        {
+
+            var square = document.getElementById(squareid);         // squareid assigining to square variable 
+
+            if(square.innerHTML === "")                           // if its empty then write X or O
+            {
+                if(currentplayer === 1){
+                    board[row][col] = "O"                             //assign O to whatever square is 
+                    square.innerHTML = "O"                            // put O in the square
+                }
+                else
+                { 
+                                                   // put X in the square
+                    board[row][col] ="X";          
+                    square.innerHTML = "X" 
+                }
+                
+            }
+            
+        }
+
+
+        function checkwinner()
+        {
+            for (var i=0; i<3; i++)              // for is loop i is a variable means index starts from 0 goes upto 2 , i++ is update the i value like 0,1,2
+            {
+                if(board[i][0]!=="" && board[i][0]===board[i][1] && board[i][1]===board[i][2]);       // if statement to check the rows by putting i in row place, ! means do not.
+                return;                // if one row matched just don't check anything else
+            }
+            if(board[0][i]!=="" && board[0][i]===board[1][i] && board[1][i]===board[2][i])             // if statement is to check column by putting i in column place
+            {
+                return; 
+            }
+        }
+            //check diagonals 
+            if(board[0][0]!=="" && board[0][0]===board[1][1] && board [1][1] ===board[2][2] ){     // check diagonals of the table 
+                return;
+            }
+
+            //check another diagonal
+            if(board[0][2]!=="" && board[0][2]===board[1][1] && board [1][1] ===board[2][0] ){
+                return;
+            }
+        
+
+
+
+
+
+
+
+       document.getElementById("sq1").onclick = function(){updateplayer("sq1");};     //acess square with their id and applied on click function 
+       document.getElementById("sq2").onclick = function(){updateplayer("sq2");};     // when someone click on square it will call the updatefunction 
+       document.getElementById("sq3").onclick = function(){updateplayer("sq3");};      // sq1 , sq2 .... in updatefunction is a argument passing in updatefunction
+       document.getElementById("sq4").onclick = function(){updateplayer("sq4");};      
+       document.getElementById("sq5").onclick = function(){updateplayer("sq5");};
+       document.getElementById("sq6").onclick = function(){updateplayer("sq6");};
+       document.getElementById("sq7").onclick = function(){updateplayer("sq7");};
+       document.getElementById("sq8").onclick = function(){updateplayer("sq8");};
+       document.getElementById("sq9").onclick = function(){updateplayer("sq9");};
+       
+       
+    
+
+
+
+
+        
+
+    </script>
+</body>
+</html>
