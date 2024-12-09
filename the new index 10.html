@@ -15,11 +15,12 @@
 
 </head>
 <body>
-    <h1 id="turn"> Player 1's Turn (O) : </h1>
+    <h1 id="turn"> Player 1's Turn (O) : </h1>  
+    <h2 id="result"> who is the winner? </h2>                                 <!-- layout for the screen-->
 
     <table>
         <tr>
-            <td id="sq1" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>                <!--table row 1. td is table data.  table data for first row square -->
+            <td id="sq1" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>    <!--in line css-->            <!--table row 1. td is table data.  table data for first row square -->
             <td id="sq2" style="height: 50px; width: 50px; border: 2px solid black; text-align: center;"></td>                <!--id for every square and give -->
             <td id="sq3" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>
         </tr>  
@@ -44,11 +45,14 @@
             ["",  "",  ""]
             ];
         
-        var currentplayer = 1;
-        function updatePlayer(squareid , row , col)    //parameter (squareid, row , col)                      // function for player turn if first player put O if second then put X    square id is name of a function parameter
+        var currentplayer = 1;                     // i made one variable which is current player 1. and after this variable i started to build a function.
+        function updatePlayer(squareid , row , col) //parameter (squareid, row , col)
         {
+            if(checkwinner()){
+            return false; }
+        
 
-            var square = document.getElementById(squareid);         // squareid assigining to square variable 
+            var square = document.getElementById(squareid);         // i mad a variable (square) and squareid is assigining to square variable 
 
             if(square.innerHTML === "")                           // if its empty then write X or O
             {
@@ -65,9 +69,11 @@
               
                 }
 
-                if(checkwinner()){                                 // if statement and in if statemnet calling a function which is check winner it will check who is the winner
-                    alert("Player" + currentplayer + "Wins!");
-                    return;                 //return true that it is correct 
+                if(checkwinner()){    
+                    document.getElementById("result").innerHTML = "player" + currentplayer + "wins";  
+                
+                                                                                                                                                                             // if statement and in if  statemnet calling a function which is check winner it will check who is the winner
+                                  //return true that it is correct 
                 }
                 if(checkDraw()){
                     alert("Game is Draw");
@@ -129,6 +135,7 @@
                     }
                 }
             }
+
             return !checkwinner();
         }
 
