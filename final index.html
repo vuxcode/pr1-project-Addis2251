@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>tic tac toe</title>
+
+    <style>
+        table{
+            min-height: 50px;
+            justify-content: center;
+            border-spacing: 0;
+            
+        }
+        
+    </style>
+
+</head>
+<body>
+    <h1 id="turn"> Player 1's Turn (O) : </h1>  
+    <h2 id="result"> who is the winner? </h2>                                 <!-- layout for the screen-->
+    <button id="resetbutton"> Reset Button</button>       <!-- made a reset button -->
+    <h1 id="round">Round 1 : 0 - 0</h1>
+    <table>
+        <tr>
+            <td id="sq1" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>    <!--in line css-->            <!--table row 1. td is table data.  table data for first row square -->
+            <td id="sq2" style="height: 50px; width: 50px; border: 2px solid black; text-align: center;"></td>                <!--id for every square and give -->
+            <td id="sq3" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>
+        </tr>  
+        <tr>
+            <td id="sq4" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>   <!--table row 2 . table data for square in the second row -->
+            <td id="sq5" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>
+            <td id="sq6" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>
+        </tr>  
+        <tr>
+            <td id="sq7" style="height: 50px; width: 50px; border: 2px solid black; text-align: center;"></td>   <!--table row 3 table data for square in the third row -->
+            <td id="sq8" style="height: 50px; width: 50px; border: 2px solid black;text-align: center;"></td>
+            <td id="sq9" style="height: 50px; width: 50px; border: 2px solid black; text-align: center;"></td>
+        </tr>  
+
+         
+    </table>
+   
+    <script>
+            var board = [                          // array of whole board with row and column , at start it is empty will update when player clicks
+            ["" , "" , ""],
+            ["",  "",  ""],
+            ["",  "",  ""]
+            ];
+        var player1wins = 0;  // varibale to check wins for player
+        var player2wins = 0;
+        var round = false;          // round variable tocheck round started or not 
+        var currentplayer = 1;                     // i made one variable which is current player 1. and after this variable i started to build a function.
+        var roundcounter = 0;        // it counts the round 
+        function updatePlayer(squareid , row , col) //parameter (squareid, row , col)
+        {
+
+            if(round)                // if round is already started then it will return 
+        { 
+            return false; 
+        }
+
+
+        
+            var square = document.getElementById(squareid);         // i mad a variable (square) and squareid is assigining to square variable 
+
+            if(square.innerHTML === "")                           // if its empty then write X or O
+            {
+                if(currentplayer === 1){
+                    board[row][col] = "O" ;                            //assign O to whatever square is 
+                    square.innerHTML = "O" ;                           // put O in the square
+                     
+                }
+                else
+                { 
+                                                   // put X in the square
+                    board[row][col] ="X";          
+                    square.innerHTML = "X";
+              
+                }
+
+            if(checkwinner())                 // if check winnner is true then check who wins the game and add win to thata player        
+        {
+            round = true;                            
+            roundcounter++;  
+            if(currentplayer===1)               // if player 1 wins add win to player 1 variable 
+            {
+                player1wins++; 
+            }
+            else
+            {
+                player2wins++;
+            }
+        
+            if(player1wins===3){                // if player 1 wins three round then he wins the game 
+                document.getElementById("result").innerHTML = "Player 1 Wins the Game!!!";
+                
+            }
+            if(player2wins===3){                   // if player 2 wins the three round then he wins the game 
+                document.getElementById("result").innerHTML = "Player 2 Wins the Game!!!";
+                
+            }
+            document.getElementById("round").innerHTML = "Round " + roundcounter + " : " + player1wins + " - " + player2wins;     // writ the round and wins of the player
+            return;
+        }
+
+
+
+
+                if(checkDraw()){
+                    alert("Game is Draw");
+                }
+                //changing the player turn
+                if(currentplayer === 1)
+                {
+                    currentplayer = 2 ;
+                    document.getElementById("turn").innerHTML = "Player 2's Turn (X)"; // getelementby id is something if we need anything from HTML Document
+
+                }else{
+                    currentplayer = 1;
+                    document.getElementById("turn").innerHTML = "Player 1's Turn (O)"; 
+                }
+                
+            }
+            
+        }
+
+
+
+        function checkwinner()
+        {
+            for (var i=0; i<3; i++)              // for is loop i is a variable means index starts from 0 goes upto 2 , i++ is update the i value like 0,1,2
+            {
+                if(board[i][0]!=="" && board[i][0]===board[i][1] && board[i][1]===board[i][2])      // if statement to check the rows by putting i in row place
+                {
+                    return true; // RETURN IF ABOVE is true 
+
+                }               // if one row matched just don't check anything else
+            }
+        
+            for (var i=0; i<3; i++){
+            if(board[0][i]!=="" && board[0][i]===board[1][i] && board[1][i]===board[2][i])             // if statement is to check column by putting i in column place
+            {
+                return true; 
+            }
+            }
+            //check diagonals 
+            if(board[0][0]!=="" && board[0][0]===board[1][1] && board [1][1] ===board[2][2] ){     // check diagonals of the table 
+                return true;
+            }
+
+            //check another diagonal
+            if(board[0][2]!=="" && board[0][2]===board[1][1] && board [1][1] ===board[2][0] ){
+                return true;
+            }
+            
+            
+            return false; // no winner
+        } 
+
+        function checkDraw()                          //fuction to check draw condition if board is full and no one wins then its draw
+        {
+            for(var i = 0; i<3 ; i++){               //nested is a loop inside a loop i put it here to check rows and col of the board
+                for(var j = 0; j<3; j++){
+                    if(board[i][j]===""){         //if board is empty then game is not finished yet
+                        return false;
+                    }
+                }
+            }
+
+            return !checkwinner();
+        }
+
+        function reset(){       //added reset function which reset the game 
+           
+            if(player1wins===3 || player2wins===3)      // if any player wins the game three times then dont reset it 
+            { 
+                return; 
+              }
+           
+            board = [                          // array of whole board with row and column , at start it is empty will update when player clicks
+            ["" , "" , ""],
+            ["",  "",  ""],
+            ["",  "",  ""]
+            ];                             //resetting everything to one 
+            currentplayer = 1;
+            round = false;       
+            document.getElementById("turn").innerHTML = "Player 1's Turn (O)"; 
+            for(var i = 1; i<=9; i++){        // making the square empty
+                document.getElementById("sq" + i ).innerHTML="";
+            }
+        }
+
+
+        document.getElementById("resetbutton").onclick = reset;  //adding on click function on the reset button 
+        
+        
+        document.getElementById("sq1").onclick = function() { updatePlayer("sq1", 0, 0); };
+        document.getElementById("sq2").onclick = function() { updatePlayer("sq2", 0, 1); };
+        document.getElementById("sq3").onclick = function() { updatePlayer("sq3", 0, 2); };
+        document.getElementById("sq4").onclick = function() { updatePlayer("sq4", 1, 0); };
+        document.getElementById("sq5").onclick = function() { updatePlayer("sq5", 1, 1); };
+        document.getElementById("sq6").onclick = function() { updatePlayer("sq6", 1, 2); };
+        document.getElementById("sq7").onclick = function() { updatePlayer("sq7", 2, 0); };
+        document.getElementById("sq8").onclick = function() { updatePlayer("sq8", 2, 1); };
+        document.getElementById("sq9").onclick = function() { updatePlayer("sq9", 2, 2); };
+    </script>
+</body>
+</html>
